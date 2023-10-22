@@ -28,6 +28,7 @@ app.post('/user', async(request,response)=>{
       lastName:request.body.lastName,
       password: await bcrypt.hash(request.body.password, saltRounds),
     };
+   
       const user = await Users.create(newUser);
       return response.status(201).send(user);
     
@@ -47,8 +48,12 @@ app.post('/login', async(request,response)=>{
      
     
       const user = await Users.findOne({userName:request.body.userName});
-      
-      return response.status(200).send(user);
+      console.log(request.body.password);
+      console.log(user.password);
+      if(bcrypt.compareSync(request.body.password, user.password))
+        return response.status(200).send({'message':'login successfull','status':0});
+      else
+        return response.status(200).send({'message':'login failed','status':1});
     
   } catch (error) {
     console.log(error.message);
