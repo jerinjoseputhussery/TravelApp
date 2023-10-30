@@ -31,4 +31,4 @@ const packageSchema = mongoose.Schema(
         required:true
     }
    });
-export const Users = mongoose.model('Package', packageSchema);
+export const Packages = mongoose.model('Package', packageSchema);

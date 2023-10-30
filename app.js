@@ -6,7 +6,8 @@ import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
 import userRoute from './routes/userRoute.js';
 import bookingRoute from './routes/bookingRoute.js';
-
+import packageRoute from './routes/packageRoute.js';
+import cors from 'cors';
 import session from 'express-session';
 import { default as connectMongoDBSession} from 'connect-mongodb-session';
 const MongoDBSession = connectMongoDBSession(session);
@@ -31,12 +32,14 @@ const store = new MongoDBSession({
       return res.status(401).send({'message':'session invalid','status':1004});
     }
   }
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/user',userRoute);
 app.use('/booking',isAuth,bookingRoute);
+app.use('/packages',isAuth,packageRoute);
+
 app.get('/', (req, res) => {
   res.send('Hello World!')
 });
