@@ -26,7 +26,7 @@ userRoute.post('/', async(request,response)=>{
       };
      
         const user = await Users.create(newUser);
-        return response.status(201).send(user);
+        return response.status(201).send({'message':'Signup successfull','status':0});
       
     } catch (error) {
       console.log(error.message);
