@@ -9,6 +9,7 @@ import bookingRoute from './routes/bookingRoute.js';
 import packageRoute from './routes/packageRoute.js';
 import cors from 'cors';
 import session from 'express-session';
+import helmet from 'helmet';
 import { default as connectMongoDBSession} from 'connect-mongodb-session';
 const MongoDBSession = connectMongoDBSession(session);
 
@@ -23,6 +24,7 @@ const store = new MongoDBSession({
     resave: false,
     saveUninitialized: false,
     store:store,
+    maxAge:   60 * 1000,
   }));
 
   const isAuth = (req,res,next) => {
@@ -33,6 +35,8 @@ const store = new MongoDBSession({
     }
   }
 app.use(cors());
+app.use(helmet.frameguard())
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
