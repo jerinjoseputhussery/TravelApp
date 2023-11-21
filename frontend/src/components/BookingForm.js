@@ -1,19 +1,18 @@
-
-
-
-// BookingForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Cookies from 'js-cookie';
+
 
 const BookingForm = () => {
-    const { tourId } = useParams();
-  const [formData, setFormData] = useState({/* initial form data */});
-
+ console.log(Cookies.get('connect.sid'));
+  const { tourId } = useParams();
+  const [formData, setFormData] = useState({/* initial form data */ });
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    axios.post('/api/bookings', formData) // Replace with your actual API endpoint
+
+    axios.post('/booking', formData) // Replace with your actual API endpoint
       .then((response) => {
         // Handle success, e.g., show a confirmation message
       })

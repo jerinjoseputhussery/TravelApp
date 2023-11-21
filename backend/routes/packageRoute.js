@@ -84,6 +84,23 @@ packageRoute.post('/add', async(request,response)=>{
       response.status(500).send({message:error.message});
     }
   })
-  
+  packageRoute.post('/delete/:id', async(request,response)=>{
+    try {
+      
+      
+
+        const {id}=request.params;
+      const result=await Packages.findOneAndDelete(id);
+        if(!result){
+          return response.status(404).send({'message':'Package not found'});
+        }
+
+        return response.status(200).send({'message':'Package deleted successfully','status':0});
+      
+    } catch (error) {
+      console.log(error.message);
+      response.status(500).send({message:error.message});
+    }
+  })
 
   export default packageRoute;

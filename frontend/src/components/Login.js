@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../style.css';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 const api = axios.create({
     withCredentials: true, // Enable cookies in requests and responses
@@ -14,7 +16,9 @@ const login = async (credentials) => {
       return error;
     }
   };
-function Login() {
+  
+  
+function Login({setIsLoggedIn }) {
   const [formData, setFormData] = useState({
     userName: '',
     password: '',
@@ -27,19 +31,27 @@ function Login() {
     try {
       const response = await login(formData); // Call your login API function
       setSuccess(response.message);
-      setError(null);
+      setError(null);      
+      setIsLoggedIn(true);
         } catch (error) {
       // Handle login error (e.g., display an error message)
       setError('Invalid email or password. Please try again.');
       setSuccess(null);
     }
   }
-
+  const showSwal = () => {
+    withReactContent(Swal).fire({
+      title: "Good job!",
+  text: "You clicked the button!",
+  icon: "success"
+    })
+  }
   return (
     <div className="login-container">
     <h2>Login</h2>
     {error && <p className="error-message">{error}</p>}
-    {success && <p className="success-message">{success}</p>}
+    {success && <p className="success-message">{success}</p> && <meta http-equiv="refresh" content="1;url=/" />}
+    {/* && <meta http-equiv="refresh" content="1;url=/" /> */}
     <form onSubmit={handleLogin}>
       <div className="form-group">
         <label>Email:</label>
@@ -62,6 +74,7 @@ function Login() {
         />
       </div>
       <button type="submit">Login</button>
+      
     </form>
   </div>
   );
