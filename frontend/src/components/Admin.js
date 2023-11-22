@@ -20,11 +20,21 @@ const editPackage = async (packageId, packageData) => {
         throw error;
     }
 };
+const deletePackage = async (packageId) => {
+    try {
+        const response = await axios.post(`/packages/delete/` + packageId);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
 
 function Admin() {
     const [loggedIn, setIsLoggedIn] = useState([]);
     const [packages, setPackages] = useState([]);
     const [editingPackage, setEditingPackage] = useState(null);
+    const [deletingPackage, setDeletingPackage] = useState(null);
+
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -113,7 +123,41 @@ function Admin() {
             console.error('Error editing package:', error);
         }
     };
+    const handleDeleteClick = async (packageToDelete) => {        
+        setDeletingPackage(packageToDelete);
+        if (!packageToDelete) return;
 
+        try {
+            const response = await deletePackage(packageToDelete._id);
+           
+            alert('Package deleted successfully');
+            console.log('Package deleted successfully:', response);
+            // Clear the form data
+            setFormData({
+                title: '',
+                description: '',
+                country: '',
+                noOfDays: '',
+                images: [],
+                location: '',
+                rate: '',
+            });
+            // Reset the editingPackage state
+            setDeletingPackage(null);
+            // Refresh the list of packages (optional)
+            axios.get('/packages')
+                .then((response) => {
+                    setPackages(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        } catch (error) {
+            // Handle error (show an error message, log the error, etc.)
+            console.error('Error editing package:', error);
+        }
+
+    };
     const handleEditClick = (packageToEdit) => {
         // Set the formData with the existing package data
         setFormData({
@@ -195,6 +239,7 @@ function Admin() {
                         {tour.rate} - {tour.rate}
 
                         <button onClick={() => handleEditClick(tour)}>Edit</button>
+                        <button onClick={() => handleDeleteClick(tour)}>Delete</button>
                     </li>
                 ))}
             </ul>
