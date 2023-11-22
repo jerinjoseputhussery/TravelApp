@@ -29,7 +29,8 @@ function Login({setIsLoggedIn }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await login(formData); // Call your login API function
+      const response = await login(formData); 
+      localStorage.setItem("userName", formData.userName);
       setSuccess(response.message);
       setError(null);      
       setIsLoggedIn(true);

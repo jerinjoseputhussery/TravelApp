@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate, BrowserRouter, Routes } from 'react-router-dom';
 import '../style/admin.css';
 
 
@@ -21,6 +22,7 @@ const editPackage = async (packageId, packageData) => {
 };
 
 function Admin() {
+    const [loggedIn, setIsLoggedIn] = useState([]);
     const [packages, setPackages] = useState([]);
     const [editingPackage, setEditingPackage] = useState(null);
     const [formData, setFormData] = useState({
@@ -35,12 +37,16 @@ function Admin() {
 
     useEffect(() => {
         axios.get('/packages')
-        .then((response) => {
-            setPackages(response.data);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+            .then((response) => {
+                setPackages(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+                if (error.response.data.status === 1004) {
+
+                   setIsLoggedIn(false);
+                }
+            });
 
     }, []);
 
@@ -62,12 +68,12 @@ function Admin() {
             });
             // Refresh the list of packages (optional)
             axios.get('/packages')
-            .then((response) => {
-                setPackages(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+                .then((response) => {
+                    setPackages(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         } catch (error) {
             // Handle error (show an error message, log the error, etc.)
             console.error('Error adding package:', error);
@@ -96,12 +102,12 @@ function Admin() {
             setEditingPackage(null);
             // Refresh the list of packages (optional)
             axios.get('/packages')
-        .then((response) => {
-            setPackages(response.data);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+                .then((response) => {
+                    setPackages(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         } catch (error) {
             // Handle error (show an error message, log the error, etc.)
             console.error('Error editing package:', error);
@@ -122,8 +128,12 @@ function Admin() {
         // Set the editingPackage state
         setEditingPackage(packageToEdit);
     };
+    console.log('username:',localStorage.getItem('userName'));
+    if(!loggedIn || !localStorage.getItem('userName') || localStorage.getItem('userName').localeCompare('admin@admin.com')){
 
-    return (
+        return (<div>pls login with admin</div>)
+    }
+    return (       
         <div className="container">
             <h2 className="heading">Admin Packages Page</h2>
 
@@ -181,7 +191,7 @@ function Admin() {
                         {tour.description} - {tour.description}
                         {tour.country} - {tour.country}
                         {tour.noOfDays} - {tour.noOfDays}
-                        {tour.images} - <img src={tour.images}/>
+                        {tour.images} - <img src={tour.images} />
                         {tour.rate} - {tour.rate}
 
                         <button onClick={() => handleEditClick(tour)}>Edit</button>

@@ -8,12 +8,13 @@ const TourList = () => {
 
     const [tours, setTours] = useState([]);
 useEffect(() => {
-    axios.get('/packages')
+    axios.get('/getPackages')
         .then((response) => {
             setTours(response.data);
         })
         .catch((error) => {
-            console.error(error);
+            console.error(error);                
+       
         });
 },[] );
 

@@ -7,6 +7,8 @@ import bodyParser from 'body-parser';
 import userRoute from './routes/userRoute.js';
 import bookingRoute from './routes/bookingRoute.js';
 import packageRoute from './routes/packageRoute.js';
+import { Packages } from './models/packages.js';
+
 import cors from 'cors';
 import session from 'express-session';
 import helmet from 'helmet';
@@ -42,7 +44,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/user',userRoute);
 app.use('/booking',isAuth,bookingRoute);
-app.use('/packages',packageRoute);
+app.use('/packages',isAuth,packageRoute);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -57,6 +59,18 @@ mongoose.connect(mongoURL).then(()=>{
 }).catch((error)=>{
   console.log(error);
 });
+
+app.get('/getPackages', async(request,response)=>{
+  try {
+    
+      const packages = await Packages.find({});
+      return response.status(200).send(packages);
+    
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({message:error.message});
+  }
+})
 app.post('/login', async(request,response)=>{  
     try {
       if(!request.body.userName ||      

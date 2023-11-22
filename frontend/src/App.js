@@ -8,11 +8,15 @@ import Login from './components/Login';
 import SignUp from './components/Signup';
 import Admin from './components/Admin';
 import axios from 'axios';
+
 // import Confirmation from './components/Confirmation';
 const api = axios.create({
   withCredentials: true, // Enable cookies in requests and responses
 });
 function App() {
+
+  
+
   const initialIsLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')) || false;
   const [isLoggedIn, setIsLoggedIn] = useState(initialIsLoggedIn);
   const handleLogout = () => {
@@ -22,6 +26,8 @@ function App() {
       console.log(response);
       setIsLoggedIn(false);
       localStorage.setItem('isLoggedIn', JSON.stringify(false));
+      localStorage.removeItem("userName");
+
 
     } catch (error) {
       //   throw error;
@@ -34,6 +40,10 @@ function App() {
     // Update localStorage whenever authentication state changes
     localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
+  // if (!isLoggedIn) {
+  //   console.log('not logged in');
+  //   redirect("/login");
+  // }
 
   return (
     <Router>
@@ -56,7 +66,7 @@ function App() {
 
             {isLoggedIn ? (
               <li className="nav-item">
-                <button onClick={handleLogout} >Logout</button>
+                <button onClick={handleLogout}>Logout</button>
               </li>
             ) : (
               <li>
@@ -69,6 +79,17 @@ function App() {
           <Route exact path="/" element={TourList()} />
           <Route exact path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route exact path="/signup" element={SignUp()} />
+
+          
+          {/* <Route exact path="/admin">
+          if (!isLoggedIn) {
+            navigate('/login')}
+            else<Route exact path="/admin" element={Admin()} /> 
+          </Route> */}
+
+
+            
+
           <Route exact path="/admin" element={Admin()} />
           <Route path="/book/:tourId" element={BookingForm()} />
           {/* <Route path="/confirmation" element={Confirmation()} /> */}
