@@ -91,7 +91,7 @@ function App() {
             
 
           <Route exact path="/admin" element={Admin()} />
-          <Route path="/book/:tourId" element={BookingForm()} />
+          <Route path="/book/:tourId/:tourRate" element={<BookingForm/>} />
           {/* <Route path="/confirmation" element={Confirmation()} /> */}
         </Routes>
       </div>

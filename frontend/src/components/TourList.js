@@ -34,7 +34,7 @@ return (
             {tours.map((tour) => (
                 <li key={tour._id}>
                     {tour.title} - ${tour.rate}
-                    <Link to={`/book/${tour._id}`}>Book Now</Link>
+                    <Link to={`/book/${tour._id}/${tour.rate}`}>Book Now</Link>
                 </li>
             ))}
         </ul>
