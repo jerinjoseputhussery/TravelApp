@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: center; 
 }
 
 .App-logo {
@@ -14,6 +14,9 @@
 }
 
 .App-header {
+  background-image: url("https://wallpapers.com/images/featured/hot-air-balloon-f585vls2rn0ksix4.jpg");
+  background-size: cover;
+  filter: brightness(50%);
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -22,7 +25,9 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  
 }
+
 
 .App-link {
   color: #61dafb;

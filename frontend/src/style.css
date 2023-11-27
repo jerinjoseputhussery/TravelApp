@@ -1,4 +1,7 @@
-/* Navbar.css */
+/* body {
+  background-image: url("https://img.freepik.com/premium-photo/hot-air-balloons-beautiful-landscape-by-generative-ai_919160-1326.jpg");
+  background-color: #cccccc;
+ } */
 .navbar {
     background-color: #333; /* Background color of the navigation bar */
     padding: 10px 0; /* Add padding for spacing */
@@ -122,6 +125,7 @@
 
 .tour-description {
   margin: 5px 0;
+  color: black;
 }
 
 .tour-country {

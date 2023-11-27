@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { resolvePath, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import '../style/bookingForm.css';
 
@@ -12,9 +12,9 @@ import '../style/bookingForm.css';
 //   flex-direction: "row", 
 //   justify-content: "center", 
 //   align-items: "center"};
-const bookPackage = async ({tourId, numberOfTravelers,
+const bookPackage = async ({ tourId, numberOfTravelers,
   travelerDetails,
-  totalAmount}) => {
+  totalAmount }) => {
   try {
 
     const requestData = {
@@ -32,19 +32,34 @@ const bookPackage = async ({tourId, numberOfTravelers,
   }
 };
 
+
+
 const BookingForm = () => {
 
   const { tourId } = useParams();
   const { tourRate } = useParams();
   const [numberOfTravelers, setNumberOfTravelers] = useState(1);
   const [travelerDetails, setTravelerDetails] = useState([]);
+  const [myPackages, setMyPackages] = useState([]);
+
   const [totalAmount, setTotalAmount] = useState(0);
   const [bookingStatus, setBookingStatus] = useState(null);
+  useEffect(() => {
+    axios.get(`/booking/` + localStorage.getItem('userName'))
+      .then((response) => {
+        setMyPackages(response.data);
+       
+      })
+      .catch((error) => {        
+        console.error(error);
+        
+      });
 
+  }, []);
   const handleNumberOfTravelersChange = (e) => {
     const count = parseInt(e.target.value, 10) || 1;
     setNumberOfTravelers(count);
-    setTravelerDetails(new Array(count).fill({}));    
+    setTravelerDetails(new Array(count).fill({}));
   };
 
   const handleTravelerDetailsChange = (index, field, value) => {
@@ -69,7 +84,7 @@ const BookingForm = () => {
       console.log(travelerDetails);
       // Make a request to the backend to book the package
       const response = await bookPackage({
-        tourId ,
+        tourId,
         numberOfTravelers,
         travelerDetails,
         totalAmount,
@@ -88,7 +103,10 @@ const BookingForm = () => {
   };
 
 
+  if(!localStorage.getItem('userName') ){
 
+    return (<div>Please <a href='/login'>Login</a></div>)
+}
   return (
     <div className="container">
       <h2>Booking Form</h2>
@@ -140,28 +158,28 @@ const BookingForm = () => {
                 }
               />
             </label>
-            
+
             <label>
               Gender:
-              <div style={{display:"flex"}}>
-              <label for="male">Male</label>
-              <input name="gender" type="radio" value="Male"
-                onChange={(e) =>
-                  handleTravelerDetailsChange(index, 'gender', e.target.value)
-                }/>
-                              <label for="female">Female</label>
+              <div style={{ display: "flex" }}>
+                <label for="male">Male</label>
+                <input name="gender" type="radio" value="Male"
+                  onChange={(e) =>
+                    handleTravelerDetailsChange(index, 'gender', e.target.value)
+                  } />
+                <label for="female">Female</label>
 
-                 <input name="gender" type="radio" value="Female"
-                onChange={(e) =>
-                  handleTravelerDetailsChange(index, 'gender', e.target.value)
-                }/>
-              {/* <select name="gender" id="gender" value={travelerDetails[index]?.gender || ''}  onChange={(e) =>
+                <input name="gender" type="radio" value="Female"
+                  onChange={(e) =>
+                    handleTravelerDetailsChange(index, 'gender', e.target.value)
+                  } />
+                {/* <select name="gender" id="gender" value={travelerDetails[index]?.gender || ''}  onChange={(e) =>
                   handleTravelerDetailsChange(index, 'gender', e.target.value)
                 }>
               <option value="Male">Male</option>
               <option value="female">Female</option>              
             </select> */}
-            </div>
+              </div>
             </label>
             <label>
               Address:

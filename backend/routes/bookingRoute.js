@@ -85,5 +85,35 @@ console.log(members);
   }
 })
 
+bookingRoute.get('/travellers/:bookingID', async (request, response) => {
+
+  try {
+    const { bookingID } = request.params;
+    const booking = await Booking.findById(bookingID);
+    //console.log(booking);
+    var members=[];
+    let resp=new Array();
+    if (booking) {      
+        const bookingMembers = await BookingMembers.find({ 'bookingId': bookingID});
+        //console.log(bookingMembers);
+        members.push(bookingMembers);
+
+
+    
+       
+console.log(members);
+
+      return response.status(200).send(members);
+    } else {
+      return response.status(200).send({ 'message': 'Booking details not found', 'status': 2002 });
+
+    }
+
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
+})
+
 
 export default bookingRoute;

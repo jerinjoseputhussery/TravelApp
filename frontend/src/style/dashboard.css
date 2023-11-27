@@ -1,0 +1,74 @@
+/* RecentTripsPage.css */
+.recent-trips-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.trip-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.trip-item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
+}
+
+.trip-details {
+  margin-bottom: 12px;
+}
+
+.trip-title {
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.trip-date,
+.trip-location,
+.trip-no-of-people,
+.trip-total-amount {
+  display: block;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.trip-travelers {
+  margin-top: 16px;
+}
+
+.trip-travelers h3 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.trip-travelers ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.trip-travelers li {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+.trip-image img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}

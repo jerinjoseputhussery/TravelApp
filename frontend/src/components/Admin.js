@@ -175,7 +175,7 @@ function Admin() {
     console.log('username:',localStorage.getItem('userName'));
     if(!loggedIn || !localStorage.getItem('userName') || localStorage.getItem('userName').localeCompare('admin@admin.com')){
 
-        return (<div>pls login with admin</div>)
+        return (<div>Please <a href='/login'>login</a> with admin</div>)
     }
     return (       
         <div className="container">
@@ -231,12 +231,12 @@ function Admin() {
             <ul className="list">
                 {packages.map((tour) => (
                     <li key={tour.id} className="list-item">
-                        {tour.title} - {tour.description}
-                        {tour.description} - {tour.description}
-                        {tour.country} - {tour.country}
-                        {tour.noOfDays} - {tour.noOfDays}
-                        {tour.images} - <img src={tour.images} />
-                        {tour.rate} - {tour.rate}
+                        {tour.title} -  {tour.noOfDays} days <br/>
+                        {/* {tour.description} - {tour.description}
+                        {tour.country} - {tour.country} */}
+                        
+                         <img src={tour.images} />
+                        {/* {tour.rate} - {tour.rate} */}
 
                         <button onClick={() => handleEditClick(tour)}>Edit</button>
                         <button onClick={() => handleDeleteClick(tour)}>Delete</button>

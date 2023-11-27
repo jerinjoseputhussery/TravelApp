@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import '../style.css';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -23,7 +24,7 @@ function Login({setIsLoggedIn }) {
     userName: '',
     password: '',
   });
-
+let navigate=useNavigate();
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const handleLogin = async (e) => {
@@ -31,6 +32,7 @@ function Login({setIsLoggedIn }) {
     try {
       const response = await login(formData); 
       localStorage.setItem("userName", formData.userName);
+      navigate(-1);
       setSuccess(response.message);
       setError(null);      
       setIsLoggedIn(true);
@@ -51,7 +53,9 @@ function Login({setIsLoggedIn }) {
     <div className="login-container">
     <h2>Login</h2>
     {error && <p className="error-message">{error}</p>}
-    {success && <p className="success-message">{success}</p> && <meta http-equiv="refresh" content="1;url=/" />}
+    {/* {success && <p className="success-message">{success}</p> && <meta http-equiv="refresh" content="1;url=/" />} */}
+    {success && <p className="success-message">{success}</p> }
+
     {/* && <meta http-equiv="refresh" content="1;url=/" /> */}
     <form onSubmit={handleLogin}>
       <div className="form-group">
