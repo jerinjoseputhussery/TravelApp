@@ -3,7 +3,7 @@ import axios from 'axios';
 import { resolvePath, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import '../style/bookingForm.css';
-
+import backendURL from '../config/config.js';
 
 
 
@@ -25,7 +25,7 @@ const bookPackage = async ({ tourId, numberOfTravelers,
       'bookedBy': localStorage.getItem('userName')
     };
     console.log(requestData);
-    const response = await axios.post(`/booking/book`, requestData);
+    const response = await axios.post(backendURL+`/booking/book`, requestData);
     return response.data;
   } catch (error) {
     throw error;
@@ -45,7 +45,7 @@ const BookingForm = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [bookingStatus, setBookingStatus] = useState(null);
   useEffect(() => {
-    axios.get(`/booking/` + localStorage.getItem('userName'))
+    axios.get(backendURL+`/booking/` + localStorage.getItem('userName'))
       .then((response) => {
         setMyPackages(response.data);
        
