@@ -4,13 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import '../style.css';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import backendURL from '../config/config.js'
 
 const api = axios.create({
     withCredentials: true, // Enable cookies in requests and responses
   });
 const login = async (credentials) => {
     try {
-      const response = await api.post(`/login`,credentials);
+      api.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+      const response = await api.post(backendURL+`/login`,credentials);
       return response.data;
     } catch (error) {        
     //   throw error;

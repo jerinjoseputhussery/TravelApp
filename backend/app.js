@@ -37,8 +37,12 @@ const store = new MongoDBSession({
     }
   }
 app.use(cors());
-app.use(helmet.frameguard())
-
+// app.use(helmet.frameguard())
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  }),
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
