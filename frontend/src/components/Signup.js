@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../style.css';
-import backendURL from '../config/config.js';
 
 const signUp = async (userData) => {
     try {
-      const response = await axios.post(backendURL+`/user`, userData);
+      const response = await axios.post(`/user`, userData);
       return response.data;
     } catch (error) {
       throw error;

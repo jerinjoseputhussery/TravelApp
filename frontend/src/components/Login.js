@@ -4,14 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import '../style.css';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import backendURL from '../config/config.js';
 
 const api = axios.create({
     withCredentials: true, // Enable cookies in requests and responses
   });
 const login = async (credentials) => {
     try {
-      const response = await api.post(backendURL+`/login`,credentials);
+      const response = await api.post(`/login`,credentials);
       return response.data;
     } catch (error) {        
     //   throw error;
@@ -32,11 +31,16 @@ let navigate=useNavigate();
     e.preventDefault();
     try {
       const response = await login(formData); 
-      localStorage.setItem("userName", formData.userName);
-      navigate(-1);
+      
+       
       setSuccess(response.message);
-      setError(null);      
-      setIsLoggedIn(true);
+      setError(null);  
+      if(response.status==0){
+        setIsLoggedIn(true);
+        localStorage.setItem("userName", formData.userName);
+        navigate(-1);
+      }    
+     
         } catch (error) {
       // Handle login error (e.g., display an error message)
       setError('Invalid email or password. Please try again.');
@@ -54,8 +58,8 @@ let navigate=useNavigate();
     <div className="login-container">
     <h2>Login</h2>
     {error && <p className="error-message">{error}</p>}
-    {/* {success && <p className="success-message">{success}</p> && <meta http-equiv="refresh" content="1;url=/" />} */}
     {success && <p className="success-message">{success}</p> }
+    {/* {success && <p className="success-message">{success}</p> } */}
 
     {/* && <meta http-equiv="refresh" content="1;url=/" /> */}
     <form onSubmit={handleLogin}>

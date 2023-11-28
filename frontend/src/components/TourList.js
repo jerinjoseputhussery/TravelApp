@@ -3,13 +3,12 @@ import { useState ,useEffect,React,useRef} from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import '../style/home.css';
-import backendURL from '../config/config.js';
 
 const TourList = () => {
     const [tours, setTours] = useState([]);
     
 useEffect(() => {
-    axios.get(backendURL+'/getPackages')
+    axios.get('/getPackages')
         .then((response) => {
             setTours(response.data);
         })

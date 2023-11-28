@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 import '../style/dashboard.css';
 import axios from 'axios';
-import backendURL from '../config/config.js';
 
 const getPackage = async (packageID) => {
   try {
-      const response = await axios.get(backendURL+`/packages/`+packageID);
+      const response = await axios.get(`/packages/`+packageID);
       return response.data;
   } catch (error) {
       throw error;
@@ -14,7 +13,7 @@ const getPackage = async (packageID) => {
 };
 const getTravellers = async (bookingID) => {
   try {
-      const response = await axios.get(backendURL+`/booking/travellers/`+bookingID);
+      const response = await axios.get(`/booking/travellers/`+bookingID);
       return response.data;
   } catch (error) {
       throw error;
@@ -31,7 +30,7 @@ function Dashboard() {
 
   const fetchUserTrips = async () => {
     try {
-     const bookings  = (await axios.get(backendURL+'/booking/'+localStorage.getItem('userName'))).data;
+     const bookings  = (await axios.get('/booking/'+localStorage.getItem('userName'))).data;
       // axios.get('/booking/'+localStorage.getItem('userName'))
       // .then((response) => {
       //   const bookings=response.data;
