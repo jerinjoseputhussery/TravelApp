@@ -10,7 +10,7 @@ const TourList = () => {
     const [tours, setTours] = useState([]);
     
 useEffect(() => {
-    axios.get(backendURL+'/getPackages')
+    axios.get('/getPackages')
         .then((response) => {
             setTours(response.data);
         })

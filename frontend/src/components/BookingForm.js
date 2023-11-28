@@ -24,7 +24,7 @@ const bookPackage = async ({ tourId, numberOfTravelers,
       'bookedBy': localStorage.getItem('userName')
     };
     console.log(requestData);
-    const response = await axios.post(backendURL+`/booking/book`, requestData);
+    const response = await axios.post(`/booking/book`, requestData);
     return response.data;
   } catch (error) {
     throw error;
@@ -44,7 +44,7 @@ const BookingForm = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [bookingStatus, setBookingStatus] = useState(null);
   useEffect(() => {
-    axios.get(backendURL+`/booking/` + localStorage.getItem('userName'))
+    axios.get(`/booking/` + localStorage.getItem('userName'))
       .then((response) => {
         setMyPackages(response.data);
        
@@ -90,7 +90,12 @@ const BookingForm = () => {
       });
 
       // Handle success (show success message, clear form, etc.)
-      setBookingStatus('success');
+      if(response.status==0){
+        setBookingStatus('success');
+      }else{
+        setBookingStatus('failure');
+      }
+      
       setNumberOfTravelers(1);
       setTravelerDetails(new Array(1).fill({}));
       setTotalAmount(0);

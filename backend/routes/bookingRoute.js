@@ -47,7 +47,7 @@ bookingRoute.post('/book', async (request, response) => {
       const bookingMembers = await BookingMembers.create(newBookingMember);
       members.push(bookingMembers);
     });
-    return response.status(201).send(booking);
+    return response.status(201).send({'message':'Booking completed successfully','status':0});
 
   } catch (error) {
     console.log(error.message);

@@ -36,10 +36,7 @@ const store = new MongoDBSession({
       return res.status(401).send({'message':'session invalid','status':1004});
     }
   }
-//   var corsOptions = {
-//     origin: 'https://adventureallybooking.onrender.com/',
-//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-//   }
+ 
 app.use(cors());
 
 app.use(helmet.frameguard())

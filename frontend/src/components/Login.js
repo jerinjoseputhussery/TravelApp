@@ -10,9 +10,8 @@ const api = axios.create({
     withCredentials: true, // Enable cookies in requests and responses
   });
 const login = async (credentials) => {
-    try {
-      api.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-      const response = await api.post(backendURL+`/login`,credentials);
+    try {     
+      const response = await api.post(`/login`,credentials);
       return response.data;
     } catch (error) {        
     //   throw error;
