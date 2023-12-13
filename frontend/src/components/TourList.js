@@ -10,7 +10,7 @@ const TourList = () => {
     const [tours, setTours] = useState([]);
     
 useEffect(() => {
-    axios.get('/getPackages')
+    axios.get('https://adventureally.onrender.com/getPackages')
         .then((response) => {
             setTours(response.data);
         })

@@ -6,7 +6,7 @@ import backendURL from '../config/config.js'
 
 const signUp = async (userData) => {
     try {
-      const response = await axios.post(`/user`, userData);
+      const response = await axios.post(`https://adventureally.onrender.com/user`, userData);
       return response.data;
     } catch (error) {
       throw error;

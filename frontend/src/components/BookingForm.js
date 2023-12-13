@@ -24,7 +24,7 @@ const bookPackage = async ({ tourId, numberOfTravelers,
       'bookedBy': localStorage.getItem('userName')
     };
     console.log(requestData);
-    const response = await axios.post(`/booking/book`, requestData);
+    const response = await axios.post(`https://adventureally.onrender.com/booking/book`, requestData);
     return response.data;
   } catch (error) {
     throw error;
@@ -44,7 +44,7 @@ const BookingForm = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [bookingStatus, setBookingStatus] = useState(null);
   useEffect(() => {
-    axios.get(`/booking/` + localStorage.getItem('userName'))
+    axios.get(`https://adventureally.onrender.com/booking/` + localStorage.getItem('userName'))
       .then((response) => {
         setMyPackages(response.data);
        
