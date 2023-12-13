@@ -38,7 +38,6 @@ const store = new MongoDBSession({
   }
  
 // app.use(cors());
-var cors = require('cors')
 
 app.use(helmet.frameguard())
 // app.use(
