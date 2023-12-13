@@ -38,6 +38,7 @@ const store = new MongoDBSession({
   }
  
 app.use(cors());
+var cors = require('cors')
 
 app.use(helmet.frameguard())
 // app.use(
@@ -52,7 +53,7 @@ app.use('/user',userRoute);
 app.use('/booking',isAuth,bookingRoute);
 app.use('/packages',isAuth,packageRoute);
 
-app.get('/', (req, res) => {
+app.get('/',cors(), (req, res) => {
   res.send('Hello World!')
 });
 
