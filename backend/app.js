@@ -38,7 +38,10 @@ const store = new MongoDBSession({
   }
  
 // app.use(cors());
-
+app.use((req,res,next)=>{
+  res.header('Access-Control-Allow-Orgin','*');
+  next();
+});
 app.use(helmet.frameguard())
 // app.use(
 //   helmet({
