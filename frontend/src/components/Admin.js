@@ -6,7 +6,7 @@ import backendURL from '../config/config.js'
 
 const addPackage = async (packageData) => {
     try {
-        const response = await axios.post(`https://adventureally.onrender.com/packages/add`, packageData);
+        const response = await axios.post(`/packages/add`, packageData);
         return response.data;
     } catch (error) {
         throw error;
@@ -14,7 +14,7 @@ const addPackage = async (packageData) => {
 };
 const editPackage = async (packageId, packageData) => {
     try {
-        const response = await axios.post(`https://adventureally.onrender.com/packages/edit/` + packageId, packageData);
+        const response = await axios.post(`/packages/edit/` + packageId, packageData);
         return response.data;
     } catch (error) {
         throw error;
@@ -22,7 +22,7 @@ const editPackage = async (packageId, packageData) => {
 };
 const deletePackage = async (packageId) => {
     try {
-        const response = await axios.post(`https://adventureally.onrender.com/packages/delete/` + packageId);
+        const response = await axios.post(`/packages/delete/` + packageId);
         return response.data;
     } catch (error) {
         throw error;
@@ -46,7 +46,7 @@ function Admin() {
     });
 
     useEffect(() => {
-        axios.get('https://adventureally.onrender.com/packages')
+        axios.get('/packages')
             .then((response) => {
                 setPackages(response.data);
             })
@@ -77,7 +77,7 @@ function Admin() {
                 rate: '',
             });
             // Refresh the list of packages (optional)
-            axios.get('https://adventureally.onrender.com/packages')
+            axios.get('/packages')
                 .then((response) => {
                     setPackages(response.data);
                 })
@@ -111,7 +111,7 @@ function Admin() {
             // Reset the editingPackage state
             setEditingPackage(null);
             // Refresh the list of packages (optional)
-            axios.get('https://adventureally.onrender.com/packages')
+            axios.get('/packages')
                 .then((response) => {
                     setPackages(response.data);
                 })
@@ -145,7 +145,7 @@ function Admin() {
             // Reset the editingPackage state
             setDeletingPackage(null);
             // Refresh the list of packages (optional)
-            axios.get('https://adventureally.onrender.com/packages')
+            axios.get('/packages')
                 .then((response) => {
                     setPackages(response.data);
                 })

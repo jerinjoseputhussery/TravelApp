@@ -30,7 +30,7 @@ function App() {
   const handleLogout = () => {
 
     try {
-      const response = api.post(`https://adventureally.onrender.com/logout`);
+      const response = api.post(`/logout`);
       console.log(response);
       setIsLoggedIn(false);
       localStorage.setItem('isLoggedIn', JSON.stringify(false));

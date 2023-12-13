@@ -11,7 +11,7 @@ const api = axios.create({
   });
 const login = async (credentials) => {
     try {     
-      const response = await api.post(`https://adventureally.onrender.com/login`,credentials);
+      const response = await api.post(`/login`,credentials);
       return response.data;
     } catch (error) {        
     //   throw error;
